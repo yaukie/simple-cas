@@ -1,5 +1,6 @@
 package org.yaukie.helper;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -16,7 +17,11 @@ public class ConfigHelper {
 	static {
 		InputStream is = null; 
 		try {
-			is = Thread.currentThread().getContextClassLoader().getResourceAsStream("/resources/config.properties");
+			is = Thread.currentThread().getContextClassLoader().getResourceAsStream("sso.properties");
+			if(is ==null)
+			{
+				throw new FileNotFoundException("sso.properties"+" file is not found");
+			}
 			properties.load(is);
 		} catch (IOException e) {
 			log.error("加载资源出错!");
